@@ -1,0 +1,55 @@
+using ToDoList.DTOs;
+using ToDoList.Entities;
+
+namespace ToDoList.Mapper
+{
+    public class ItemMapper
+    {
+        public Item? ToEntity(ItemToBack? itemToBack)
+        {
+            Item? newItem;
+            if (itemToBack==null)
+                newItem=null;
+            else 
+            {
+                newItem = new Item();
+                newItem.Id=itemToBack.Id;
+                newItem.Name=itemToBack.Name;
+                newItem.Description=itemToBack.Description;
+            }
+            return newItem;
+        }
+        public Item? ToEntity(CreatedItem? createdItem)
+        {
+            Item? newItem;
+            if (createdItem==null)
+                newItem=null;
+            else 
+            {
+                newItem = new Item();
+                newItem.Id=Guid.NewGuid();
+                newItem.Name=createdItem.Name;
+                newItem.Description=createdItem.Description;
+                newItem.CreatedAt=DateTime.UtcNow;
+                newItem.UpdatedAt=DateTime.UtcNow;
+            }
+            return newItem;
+        }
+        public ItemToFront? ToFront(Item? item)
+        {
+            ItemToFront? newItemToFront;
+            if (item==null)
+                newItemToFront = null;
+            else
+            {
+                newItemToFront = new ItemToFront();
+                newItemToFront.Id=item.Id;
+                newItemToFront.Name=item.Name;
+                newItemToFront.Description=item.Description;
+                newItemToFront.CreatedAt=item.CreatedAt;
+            newItemToFront.UpdatedAt=item.UpdatedAt;  
+            }
+            return newItemToFront;
+        }
+    }
+}

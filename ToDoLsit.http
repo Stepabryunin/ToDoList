@@ -1,0 +1,6 @@
+@ToDoLsit_HostAddress = http://localhost:5153
+
+GET {{ToDoLsit_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
