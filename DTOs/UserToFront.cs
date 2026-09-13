@@ -1,0 +1,12 @@
+using System.ComponentModel.DataAnnotations;
+namespace ToDoList.DTOs
+{
+    public class UserToFront
+    {
+
+        public string FirtsName{get;set;}=string.Empty;
+        public string LastName{get;set;}=string.Empty;
+        public string Email{get;set;}=string.Empty;
+        public DateTime CreatedAt{get;set;} = DateTime.UtcNow;
+    }
+}

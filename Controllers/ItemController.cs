@@ -11,10 +11,10 @@ namespace ToDoList.Controllers
     [Route("api/[controller]")]
     public class ItemController : ControllerBase
     {
-        IItemService _IS;
-        public ItemController(IItemService itemService)
+        private readonly IItemService _IS;
+        public ItemController(IItemService iItemService)
         {
-            _IS=itemService;
+            _IS=iItemService;
         }
         
 
