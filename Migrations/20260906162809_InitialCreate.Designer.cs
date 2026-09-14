@@ -11,7 +11,7 @@ using ToDoList.Context;
 
 namespace ToDoLsit.Migrations
 {
-    [DbContext(typeof(ItemContext))]
+    [DbContext(typeof(MyDbContext))]
     [Migration("20260906162809_InitialCreate")]
     partial class InitialCreate
     {

@@ -1,5 +1,6 @@
 using ToDoList.DTOs;
 using ToDoList.Entities;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace ToDoList.Interfaces
 {
@@ -7,6 +8,7 @@ namespace ToDoList.Interfaces
     {
         public string ToHashPassword(string password);
         public bool VerifyPassword(string password, string Hash);
-        public string CreateJWTToken(User user);
+        
+        public JwtSecurityToken CreateJWTToken(User user);
     }
 }

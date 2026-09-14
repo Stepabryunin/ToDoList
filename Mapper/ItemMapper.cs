@@ -1,7 +1,7 @@
 using ToDoList.DTOs;
 using ToDoList.Entities;
 
-namespace ToDoList.Mapper
+namespace ToDoList.Mappers
 {
     public class ItemMapper
     {

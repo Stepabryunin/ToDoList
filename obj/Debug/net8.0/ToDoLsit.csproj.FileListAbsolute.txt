@@ -109,3 +109,13 @@ E:\PetProjects\ToDoList\ToDoLsit\obj\Debug\net8.0\refint\ToDoLsit.dll
 E:\PetProjects\ToDoList\ToDoLsit\obj\Debug\net8.0\ToDoLsit.pdb
 E:\PetProjects\ToDoList\ToDoLsit\obj\Debug\net8.0\ToDoLsit.genruntimeconfig.cache
 E:\PetProjects\ToDoList\ToDoLsit\obj\Debug\net8.0\ref\ToDoLsit.dll
+E:\PetProjects\ToDoList\ToDoLsit\obj\Debug\net8.0\ToDoLsit.sourcelink.json
+E:\PetProjects\ToDoList\ToDoLsit\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\PetProjects\ToDoList\ToDoLsit\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+E:\PetProjects\ToDoList\ToDoLsit\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\PetProjects\ToDoList\ToDoLsit\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+E:\PetProjects\ToDoList\ToDoLsit\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+E:\PetProjects\ToDoList\ToDoLsit\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\PetProjects\ToDoList\ToDoLsit\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+E:\PetProjects\ToDoList\ToDoLsit\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+E:\PetProjects\ToDoList\ToDoLsit\bin\Debug\net8.0\BCrypt-Net-Next.dll

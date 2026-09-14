@@ -1,17 +1,17 @@
 using Microsoft.EntityFrameworkCore;
 using ToDoList.Interfaces;
 using ToDoList.DTOs;
-using ToDoList.Mapper;
+using ToDoList.Mappers;
 using ToDoList.Context;
 using ToDoList.Entities;
 
 namespace ToDoList.Services{
     public class ItemService:IItemService
     {
-        ItemContext db;
-        ItemMapper im;
+        private readonly MyDbContext db;
+        private readonly ItemMapper im;
 
-        public ItemService(ItemContext _ItemService, ItemMapper _ItemMapper)
+        public ItemService(MyDbContext _ItemService, ItemMapper _ItemMapper)
         {
             db=_ItemService;
             im= _ItemMapper;

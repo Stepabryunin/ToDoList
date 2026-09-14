@@ -9,7 +9,7 @@ namespace ToDoList.DTOs
         public string Email{get;set;}=string.Empty;
         [Required]
         [StringLength(100,MinimumLength = 3)]
-        public string Password=string.Empty;
+        public string Password{get;set;}=string.Empty;
 
         
     }

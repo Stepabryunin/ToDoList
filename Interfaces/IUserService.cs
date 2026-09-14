@@ -7,12 +7,13 @@ namespace ToDoList.Interfaces
     public interface IUserService
     {
         
-        public UserToFront? AddUserAsync(UserToBack user);
-        public bool UpdateUserAsync(UpdatedUser user);
-        public User? GetUserbyEmailAsync(string email);
-        public User? GetUserByIdAsync(Guid userId);
-        public bool DeleteUserByIdAsync(Guid userId);
-        public bool UpdatePasswordAsync(string newPassword);
+        public Task<User?> AddUserAsync(UserToBack user);
+        public Task<User?> GetUserbyEmailAsync(string email);
+        // public Task<bool> UpdateUserAsync(UpdatedUser user);
+        
+        // public Task<User?> GetUserByIdAsync(Guid userId);
+        // public Task<bool> DeleteUserByIdAsync(Guid userId);
+        // public Task<bool> UpdatePasswordAsync(string newPassword);
 
     }
 }

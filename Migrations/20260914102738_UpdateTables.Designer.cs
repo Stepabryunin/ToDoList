@@ -12,8 +12,8 @@ using ToDoList.Context;
 namespace ToDoLsit.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20260907110359_AddUsers")]
-    partial class AddUsers
+    [Migration("20260914102738_UpdateTables")]
+    partial class UpdateTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -82,7 +82,7 @@ namespace ToDoLsit.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("ToDoList.Entities.Item", b =>

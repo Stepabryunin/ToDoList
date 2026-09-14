@@ -9,7 +9,7 @@ using ToDoList.Context;
 
 namespace ToDoLsit.Migrations
 {
-    [DbContext(typeof(ItemContext))]
+    [DbContext(typeof(MyDbContext))]
     [Migration("20260906110029_First")]
     partial class First
     {

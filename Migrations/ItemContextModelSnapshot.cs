@@ -10,7 +10,7 @@ using ToDoList.Context;
 
 namespace ToDoLsit.Migrations
 {
-    [DbContext(typeof(ItemContext))]
+    [DbContext(typeof(MyDbContext))]
     partial class ItemContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -79,7 +79,7 @@ namespace ToDoLsit.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("ToDoList.Entities.Item", b =>

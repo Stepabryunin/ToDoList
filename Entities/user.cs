@@ -19,6 +19,6 @@ namespace ToDoList.Entities
         public DateTime CreatedAt {get;set;}
 
         public List<Item> Items {get;set;} = new List<Item>();
-
+        
     }
 }
