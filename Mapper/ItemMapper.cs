@@ -19,10 +19,10 @@ namespace ToDoList.Mappers
             }
             return newItem;
         }
-        public Item? ToEntity(CreatedItem? createdItem)
+        public Item? ToEntity(CreatedItem? createdItem, User? user)
         {
             Item? newItem;
-            if (createdItem==null)
+            if (createdItem==null || user==null)
                 newItem=null;
             else 
             {
@@ -32,6 +32,8 @@ namespace ToDoList.Mappers
                 newItem.Description=createdItem.Description;
                 newItem.CreatedAt=DateTime.UtcNow;
                 newItem.UpdatedAt=DateTime.UtcNow;
+                newItem.UserId=user.Id;
+                newItem.User=user;
             }
             return newItem;
         }

@@ -1,3 +1,4 @@
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
@@ -7,22 +8,24 @@ namespace ToDoList
 {
     public class JWTOptions
     {
-        WebApplicationBuilder builder;
-        public JWTOptions(WebApplicationBuilder _builder)
+        WebApplication builder;
+        IConfiguration configuration;
+        public JWTOptions(IConfiguration _conf)
         {
-            builder=_builder;
+            configuration = _conf;
+
         }
         public TokenValidationParameters GetOptions()
         {
           var parametrs = new TokenValidationParameters()
           {
             ValidateIssuer = true,
-            ValidIssuer = builder.Configuration["JWTOptions:Issuer"],
+            ValidIssuer = configuration["JWTOptions:Issuer"],
             ValidateAudience = true,
-            ValidAudience =  builder.Configuration["JWTOptions:Audiencer"],
+            ValidAudience =  configuration["JWTOptions:Audiencer"],
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWTOptions:Key"]))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWTOptions:Key"]))
           };
           return parametrs;
 

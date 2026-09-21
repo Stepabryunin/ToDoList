@@ -25,7 +25,7 @@ namespace ToDoList.Services
         }
         public JwtSecurityToken CreateJWTToken(User user)
         {
-            var claims = new List<Claim> {new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())};
+            var claims = new List<Claim> {new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString())};
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes((_config["JWToptions:Key"])));
             var jwt = new JwtSecurityToken(
                 issuer: _config["JWToptions:Issuer"],

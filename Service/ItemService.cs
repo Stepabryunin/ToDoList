@@ -17,21 +17,22 @@ namespace ToDoList.Services{
             im= _ItemMapper;
         }
 
-        public async Task<List<ItemToFront?>> GetAllItemAsync()
+        public async Task<List<ItemToFront?>> GetAllItemAsync(User user)
         {
-            var items = await db.Items.ToListAsync();
+            var items = await db.Items
+                .Where(i => i.UserId==user.Id)
+                .ToListAsync();
             return items.Select(im.ToFront).ToList();
         }
 
-        public async Task<ItemToFront?> GetItemByIdAsync(Guid ItemId)
+        public async Task<Item?> GetItemByIdAsync(Guid ItemId)
         {
-            var item = await db.Items.FirstOrDefaultAsync(item => item.Id==ItemId);
-            return im.ToFront(item);
+            return await db.Items.FirstOrDefaultAsync(item => item.Id==ItemId);
         }
-        public async Task<bool> AddItemAsync(CreatedItem createdItem)
+        public async Task<bool> AddItemAsync(CreatedItem createdItem, User user)
         {
             bool result = false;
-            var item = im.ToEntity(createdItem);
+            var item = im.ToEntity(createdItem, user);
             if (item!=null)
             {
                 var itemFromDb= await db.Items.FindAsync(item.Id);
@@ -62,11 +63,13 @@ namespace ToDoList.Services{
                    { 
                         oldItem.Name = item.Name;
                         result = true;
+                        oldItem.UpdatedAt=DateTime.UtcNow;
                    }
                 if (!string.IsNullOrWhiteSpace(item.Description))
                     {
                         oldItem.Description=item.Description;
                         result = true;
+                        oldItem.UpdatedAt=DateTime.UtcNow;
                     }
                 await db.SaveChangesAsync();
             }

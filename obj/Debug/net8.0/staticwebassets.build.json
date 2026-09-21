@@ -1,11 +1,1 @@
-{
-  "Version": 1,
-  "Hash": "2dB72sUXYXZZ5gegMFuCXnf3vrPL3IOmuw8DWbq5JB8=",
-  "Source": "ToDoLsit",
-  "BasePath": "_content/ToDoLsit",
-  "Mode": "Default",
-  "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
-}
+{"Version":1,"Hash":"F6Gns2cb2tBhyT+Wf/2wWN0fSV+zMs74DvnOkvmnN1A=","Source":"ToDoLsit","BasePath":"/","Mode":"Root","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[],"Assets":[],"Endpoints":[]}

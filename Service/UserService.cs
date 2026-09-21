@@ -29,6 +29,11 @@ namespace ToDoList.Services
             var user = await _db.Users.FirstOrDefaultAsync(u => u.Email==Email);
             return user;
         }
+
+        async public Task<User?> GetUserByIdAsync(Guid Id)
+        {
+            return await _db.Users.FirstOrDefaultAsync(u=>u.Id==Id);
+        }
         
     }
     

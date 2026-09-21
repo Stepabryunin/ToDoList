@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.OpenApi.Models;
 using ToDoList.Mappers;
 using ToDoList.Services;
 using ToDoList.Interfaces;
@@ -11,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 string connectionString = builder.Configuration.GetConnectionString("BaseConnection");
 
 
-var jWTparametres= new JWTOptions(builder);
+var jWTparametres= new JWTOptions(builder.Configuration);
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => 
     {
         options.TokenValidationParameters=jWTparametres.GetOptions();
@@ -26,6 +27,41 @@ builder.Services.AddScoped<IItemService,ItemService>();
 builder.Services.AddScoped<IAuthService,AuthService>();
 builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddControllers();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "ToDoList API",
+        Version = "v1"
+    });
+
+    // Security scheme для JWT
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Description = "Введите JWT токен (без слова Bearer).",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT"
+    });
+
+    // Требуем эту схему для эндпоинтов
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
 
 
 builder.Services.AddEndpointsApiExplorer();

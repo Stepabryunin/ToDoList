@@ -1,4 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -11,6 +12,7 @@ namespace ToDoList.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    
     public class UserController:ControllerBase
     {
         private readonly IUserService _US;

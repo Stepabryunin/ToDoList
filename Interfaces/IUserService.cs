@@ -9,6 +9,7 @@ namespace ToDoList.Interfaces
         
         public Task<User?> AddUserAsync(UserToBack user);
         public Task<User?> GetUserbyEmailAsync(string email);
+        public Task<User?> GetUserByIdAsync(Guid Id);
         // public Task<bool> UpdateUserAsync(UpdatedUser user);
         
         // public Task<User?> GetUserByIdAsync(Guid userId);
