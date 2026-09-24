@@ -37,21 +37,19 @@ namespace ToDoList.Mappers
             }
             return newItem;
         }
-        public ItemToFront? ToFront(Item? item)
+        public ItemToFront ToFront(Item item)
         {
-            ItemToFront? newItemToFront;
-            if (item==null)
-                newItemToFront = null;
-            else
-            {
-                newItemToFront = new ItemToFront();
-                newItemToFront.Id=item.Id;
-                newItemToFront.Name=item.Name;
-                newItemToFront.Description=item.Description;
-                newItemToFront.CreatedAt=item.CreatedAt;
+            ItemToFront newItemToFront = new ItemToFront();
+             newItemToFront.Id=item.Id;
+            newItemToFront.Name=item.Name;
+            newItemToFront.Description=item.Description;
+            newItemToFront.CreatedAt=item.CreatedAt;
             newItemToFront.UpdatedAt=item.UpdatedAt;  
-            }
             return newItemToFront;
         }
+
+
+
+
     }
 }

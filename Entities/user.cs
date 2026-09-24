@@ -17,6 +17,8 @@ namespace ToDoList.Entities
         public string PasswordHash{get;set;}
         [Required]
         public DateTime CreatedAt {get;set;}
+        [Required]
+        public DateTime UpdatedAt {get;set;}
 
         public List<Item> Items {get;set;} = new List<Item>();
         

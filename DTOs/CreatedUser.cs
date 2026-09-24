@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ToDoList.DTOs
 {
-    public class UserToBack
+    public class CreatedUser
     {
         [Required]
         public string FirtsName{get;set;}=string.Empty;

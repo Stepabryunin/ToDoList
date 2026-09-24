@@ -4,9 +4,10 @@ namespace ToDoList.DTOs
     public class UserToFront
     {
 
-        public string FirtsName{get;set;}=string.Empty;
+        public string FirstName{get;set;}=string.Empty;
         public string LastName{get;set;}=string.Empty;
         public string Email{get;set;}=string.Empty;
         public DateTime CreatedAt{get;set;} = DateTime.UtcNow;
+        public DateTime UpdatedAt {get;set;} = DateTime.UtcNow;
     }
 }

@@ -23,9 +23,12 @@ builder.Services.AddAuthorization();
 builder.Services.AddDbContext<MyDbContext>(options=>options.UseNpgsql(connectionString));
 builder.Services.AddScoped<ItemMapper>();
 builder.Services.AddScoped<UserMapper>();
+builder.Services.AddScoped<IPasswordService, PasswordService>();
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<IUserService>( sp => sp.GetRequiredService<UserService>());
+builder.Services.AddScoped<IUserServiceInternal>(sp => sp.GetRequiredService<UserService>());
 builder.Services.AddScoped<IItemService,ItemService>();
 builder.Services.AddScoped<IAuthService,AuthService>();
-builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -65,7 +68,7 @@ builder.Services.AddSwaggerGen(c =>
 
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
 

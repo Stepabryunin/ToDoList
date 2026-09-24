@@ -5,13 +5,13 @@ using ToDoList.Common;
 using ToDoList.Entities;
 namespace ToDoList.Interfaces
 {
-    public interface IUserService
+    public interface IUserServiceInternal
     {
         
-        
-        public Task<UserToFront?>  GetUserbyEmailAsync(string Email);
-        public Task<UserToFront?> GetUserByIdAsync(Guid Id);
-        public Task<Result<UserToFront>> UpdateUserAsync(UpdatedUser updatedUser, Guid UserId);
+
+        public Task<User?> CreateUserAsync(CreatedUser createdUser);
+        public Task<User?>  GetEntitybyEmailAsync(string Email);
+        public Task<User?> GetEntityByIdAsync(Guid Id);
         // public Task<Guid?> GetIdByEmail(string email);
         // // public Task<bool> DeleteUserByIdAsync(Guid userId);
 

@@ -1,14 +1,14 @@
 using ToDoList.DTOs;
 using ToDoList.Entities;
 using System.IdentityModel.Tokens.Jwt;
+using ToDoList.Common;
 
 namespace ToDoList.Interfaces
 {
     public interface IAuthService
     {
-        public string ToHashPassword(string password);
-        public bool VerifyPassword(string password, string Hash);
-        
-        public JwtSecurityToken CreateJWTToken(User user);
+
+        public Task<Result<AuthResult>> Register(CreatedUser user);
+        public Task<Result<AuthResult>> Login(string email, string password);
     }
 }

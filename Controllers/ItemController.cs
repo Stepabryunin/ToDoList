@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using ToDoList.Mappers;
+using ToDoList.Extentions;
+using ToDoList.Common;
 
 namespace ToDoList.Controllers
 {
@@ -36,13 +38,8 @@ namespace ToDoList.Controllers
             Guid userIdGuid;
             if (!Guid.TryParse(userIdString,out userIdGuid))
                 return Unauthorized();
-            var user = await _US.GetUserByIdAsync(userIdGuid);
-            if (user==null)
-                return Unauthorized();
-            var items = await _IS.GetAllItemAsync(user);
-            if (items!=null && items.Count()>0)
-                return Ok(items);
-            return NotFound();
+            var result = await _IS.GetAllItemForUserAsync(userIdGuid);
+            return result.ToAction(); 
         }
 
         [HttpGet("{itemId}")]
@@ -54,10 +51,8 @@ namespace ToDoList.Controllers
             Guid userIdGuid;
             if (!Guid.TryParse(userIdString, out userIdGuid))
                 return Unauthorized();
-            var item = await _IS.GetItemByIdAsync(itemId);
-            if (item == null || item.UserId!=userIdGuid)
-                return NotFound();
-            return Ok(item);
+            var result = await _IS.GetItemByIdAsync(itemId, userIdGuid);
+            return result.ToAction();
         }
 
         [HttpPost]
@@ -69,17 +64,8 @@ namespace ToDoList.Controllers
             Guid userIdGuid;
             if (!Guid.TryParse(userIdString,out userIdGuid))
                 return Unauthorized();
-            var user = await _US.GetUserByIdAsync(userIdGuid);
-            if (user==null)
-                return Unauthorized();
-            
-            System.Console.WriteLine($"{item.Name}, {item.Description}");
-            if (await _IS.AddItemAsync(item,user))
-            {
-                Item addedItem= await _IS.GetLast();//он тут не вернёт null никогда
-                return Created($"/item/{addedItem.Id}", _IM.ToFront(addedItem));
-            }
-            return BadRequest();
+            var result = await _IS.AddItemAsync(item, userIdGuid);
+            return result.ToAction();
         }
 
         [HttpPatch]
@@ -91,16 +77,8 @@ namespace ToDoList.Controllers
             Guid userIdGuid;
             if (!Guid.TryParse(userIdString, out userIdGuid))
                 return Unauthorized();
-            User? user = await  _US.GetUserByIdAsync(userIdGuid); 
-            if (user==null)
-                return Unauthorized();
-            var item = await _IS.GetItemByIdAsync(itemToBack.Id);
-            if (item == null || item.UserId != userIdGuid)
-                return NotFound();
-            bool result = await _IS.UpdateItemAsync(itemToBack);
-            if (result== null)
-                return BadRequest();
-            return Ok();
+            var result = await _IS.UpdateItemAsync(itemToBack,userIdGuid);
+            return result.ToAction();
         }
 
         [HttpDelete("{itemId}")]
@@ -112,16 +90,8 @@ namespace ToDoList.Controllers
             Guid userIdGuid;
             if (!Guid.TryParse(userIdString, out userIdGuid))
                 return Unauthorized();
-            User? user = await  _US.GetUserByIdAsync(userIdGuid); 
-            if (user==null)
-                return Unauthorized();
-            var item = await _IS.GetItemByIdAsync(itemId);
-            if (item==null || item.UserId!=user.Id)
-                return NotFound();
-            bool result = await _IS.DeleteItemAsync(itemId);
-            if (!result)
-                return NotFound();
-            return Ok();
+            var result = await _IS.DeleteItemAsync(itemId, userIdGuid);
+            return result.ToAction();
         }
 
  
