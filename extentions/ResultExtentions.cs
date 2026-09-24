@@ -16,6 +16,7 @@ namespace ToDoList.Extentions
                 case ResultStatus.Unauthorized: return new UnauthorizedObjectResult(result.Error);
                 case ResultStatus.BadRequest: return new BadRequestObjectResult(result.Error);
                 case ResultStatus.Conflict: return new ConflictObjectResult(result.Error);
+                case ResultStatus.Forbidden: return new ForbidResult();
                 
             }
             return new BadRequestObjectResult(result.Error);

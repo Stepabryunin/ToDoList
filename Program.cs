@@ -27,6 +27,7 @@ builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<IUserService>( sp => sp.GetRequiredService<UserService>());
 builder.Services.AddScoped<IUserServiceInternal>(sp => sp.GetRequiredService<UserService>());
+builder.Services.AddScoped<IRefreshTokenService, RefreshTokenService>();
 builder.Services.AddScoped<IItemService,ItemService>();
 builder.Services.AddScoped<IAuthService,AuthService>();
 builder.Services.AddControllers();

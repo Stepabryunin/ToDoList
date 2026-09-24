@@ -7,6 +7,7 @@ namespace ToDoList.Context
 {
     public DbSet<Item> Items {get; set;} = null!;
     public DbSet<User> Users {get;set;} = null!;
+    public DbSet<RefreshToken> Tokens {get;set;} = null!;
 
     public MyDbContext(DbContextOptions<MyDbContext> options) :base(options)
     {
@@ -16,6 +17,9 @@ namespace ToDoList.Context
     {
         modelBuilder.Entity<User>().ToTable("Users");
         modelBuilder.Entity<Item>().ToTable("Items");
+        modelBuilder.Entity<RefreshToken>().HasKey("TokenId");
+        modelBuilder.Entity<RefreshToken>().ToTable("Tokens");
+        
     }
 
 

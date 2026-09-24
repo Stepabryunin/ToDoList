@@ -29,16 +29,23 @@ namespace ToDoList.Controllers
 
         }
 
-        [HttpPost("/Registration")]
+        [HttpPost("Registration")]
         public async Task<IActionResult> Register([FromBody] CreatedUser user)
         {
             var result = await _AS.Register(user);
             return result.ToAction();
         }
-        [HttpPost("/login")]
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserToLogin user)
         {
             var result = await _AS.Login(user.Email, user.Password);
+            return result.ToAction();
+        }
+        
+        [HttpPost("refresh")]
+        public async Task<IActionResult> Refresh([FromBody] RefreshTokenToBack refreshToken)
+        {
+            var result = await _AS.Refresh(refreshToken.TokenRefresh);
             return result.ToAction();
         }
         [HttpPatch]

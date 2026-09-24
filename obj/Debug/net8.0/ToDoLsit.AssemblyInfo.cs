@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ToDoLsit")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fd6e63f98886fd184dc65b3421f77b0aba7dbfbe")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d7c2dbd1fa45bb05ba845979eee00072effc6e8e")]
 [assembly: System.Reflection.AssemblyProductAttribute("ToDoLsit")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ToDoLsit")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -28,6 +28,12 @@ namespace ToDoList.Common
             Error=null;
         }
         public static Result<T> NoContent() => new();
+        public static Result<T> Forbidden()
+        {
+            var res = new Result<T>();
+            res.Status=ResultStatus.Forbidden;
+            return res;
+        }
 
 
     }
@@ -38,6 +44,7 @@ namespace ToDoList.Common
         Unauthorized,
         BadRequest,
         Conflict,
-        NoContent
+        NoContent,
+        Forbidden
     }
 }

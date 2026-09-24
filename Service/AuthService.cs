@@ -16,12 +16,14 @@ namespace ToDoList.Services
         private readonly IUserServiceInternal _US;
         private readonly UserMapper _UM;
         private readonly IPasswordService _PS;
-        public AuthService(IConfiguration config, IUserServiceInternal iUserService, UserMapper userMapper, IPasswordService passwordService)
+        private readonly IRefreshTokenService _RTS;
+        public AuthService(IConfiguration config, IUserServiceInternal iUserService, UserMapper userMapper, IPasswordService passwordService, IRefreshTokenService refreshTokenService)
         {
             _config = config;
             _US = iUserService;
             _UM = userMapper;
             _PS = passwordService;
+            _RTS = refreshTokenService;
         }
         private JwtSecurityToken CreateJWTToken(Guid userId)
         {
@@ -36,7 +38,21 @@ namespace ToDoList.Services
             );
             return jwt;
         }
-        async public Task<Result<AuthResult>> Register(CreatedUser user)
+        public async Task<Result<AuthResult>> Refresh(string oldToken)
+        {
+            var refreshToken = await _RTS.UpdateRefreshToken(oldToken);
+            if (refreshToken.Success)
+            {
+                var accessTokenClass = CreateJWTToken(refreshToken.Value!.UserId);
+                string accessToken = new JwtSecurityTokenHandler().WriteToken(accessTokenClass);
+                var user = await  _US.GetEntityByIdAsync(refreshToken.Value!.UserId);
+                AuthResult result = new AuthResult(accessToken,refreshToken.Value!.Token, _UM.ToFront(user!));
+                return new Result<AuthResult>(result);
+            }            
+            return new Result<AuthResult>(refreshToken.Status, refreshToken.Error!);
+            
+        }
+        public async Task<Result<AuthResult>> Register(CreatedUser user)
         {
             var checkUser = await  _US.GetEntitybyEmailAsync(user.Email);
             if (checkUser != null)
@@ -48,21 +64,27 @@ namespace ToDoList.Services
 
             if (addedUser == null)
                 return new Result<AuthResult>(ResultStatus.BadRequest,"Не удалость сосздать пользователя");
-            var jwtToken = CreateJWTToken(addedUser.Id);
-            string token = new JwtSecurityTokenHandler().WriteToken(jwtToken);
-            return new Result<AuthResult>(new AuthResult(token, _UM.ToFront(addedUser)));
+            var accessToken = CreateJWTToken(addedUser.Id);
+            string accesTokenString = new JwtSecurityTokenHandler().WriteToken(accessToken);
+            var refreshToken =await _RTS.GenerateNewRefreshToken(addedUser.Id);
+            if (!refreshToken.Success)
+                return new Result<AuthResult>(refreshToken.Status, refreshToken.Error!);
+            return new Result<AuthResult>(new AuthResult(accesTokenString, refreshToken.Value!, _UM.ToFront(addedUser)));
         }
 
-        async public Task<Result<AuthResult>> Login(string email, string password)
+        public async Task<Result<AuthResult>> Login(string email, string password)
         {
             var checkUser = await _US.GetEntitybyEmailAsync(email);
             if (checkUser == null)
-                return new Result<AuthResult>(ResultStatus.Conflict, "Email уже занят");
+                return new Result<AuthResult>(ResultStatus.Unauthorized, "Неправильный логин или пароль");
             if (!_PS.VerifyPassword(password, checkUser.PasswordHash))
                 return new Result<AuthResult>(ResultStatus.Unauthorized, "Неправильный логин или пароль");
             var jwtToken = CreateJWTToken(checkUser.Id);
             string token = new JwtSecurityTokenHandler().WriteToken(jwtToken);
-            return new Result<AuthResult>(new AuthResult(token, _UM.ToFront(checkUser)));
+            var refreshToken =await _RTS.GenerateNewRefreshToken(checkUser.Id);
+            if (!refreshToken.Success)
+                return new Result<AuthResult>(refreshToken.Status, refreshToken.Error!);
+            return new Result<AuthResult>(new AuthResult(token, refreshToken.Value!, _UM.ToFront(checkUser)));
         }
     }    
 }

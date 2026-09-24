@@ -2,13 +2,15 @@ namespace ToDoList.DTOs
 {
     public class AuthResult
     {
-        public string accessToken {get;set;}
-        public UserToFront user {get;set;} 
+        public string AccessToken {get;set;}
+        public string RefreshToken {get;set;}
+        public UserToFront User {get;set;} 
     
-        public AuthResult(string token, UserToFront us)
+        public AuthResult(string accessToken, string refreshToken, UserToFront us)
         {
-            accessToken = token;
-            user=us;
+            AccessToken = accessToken;
+            RefreshToken = refreshToken;
+            User=us;
         }
     }
 

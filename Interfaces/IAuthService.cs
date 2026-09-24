@@ -10,5 +10,8 @@ namespace ToDoList.Interfaces
 
         public Task<Result<AuthResult>> Register(CreatedUser user);
         public Task<Result<AuthResult>> Login(string email, string password);
+        public Task<Result<AuthResult>> Refresh(string oldToken);
+        
     }
+     
 }
